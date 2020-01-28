@@ -1,0 +1,3 @@
+npm install express-generator -g (once global install)
+
+to create project (express project_name)
