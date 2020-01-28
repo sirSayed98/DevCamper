@@ -1,17 +1,21 @@
 const http = require('http');
-const fs = require('fs');
+const url = require('url')
+const route = require('./route')
 
 const server = http.createServer((req, res) => {
-    fs.readFile('./index.html', null, (err, data) => {
-        if (err) {
-            res.end('cannot read file')
-        }
-        else {
-            res.end(data)
-        }
-    })
+    const path = url.parse(req.url).pathname;
+    switch (path) {
+        case '/':
+            route('index.html', res)
+            break;
+        default:
+            res.end('Error 404 not found')
+            break;
+    }
+
 
 })
 server.listen(3000, '127.0.0.1', () => {
-    console.log('server running')
-}) 
+    console.log('server running ....')
+})
+
