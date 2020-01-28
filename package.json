@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/sirSayed98/nodeJS_course/issues"
   },
-  "homepage": "https://github.com/sirSayed98/nodeJS_course#readme"
+  "homepage": "https://github.com/sirSayed98/nodeJS_course#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
