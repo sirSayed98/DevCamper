@@ -1,5 +1,6 @@
 const fs = require('fs');
-function route(path, res) {
+const url = require('url')
+function handle(path, res) {
     fs.readFile(path, null, (err, data) => {
         if (err) {
             res.end('cannot read file')
@@ -8,6 +9,17 @@ function route(path, res) {
             res.end(data)
         }
     })
+}
 
+function route(req, res) {
+    const path = url.parse(req.url).pathname;
+    switch (path) {
+        case '/':
+            handle('index.html', res)
+            break;
+        default:
+            res.end('Error 404 not found')
+            break;
+    }
 }
 module.exports = route;
