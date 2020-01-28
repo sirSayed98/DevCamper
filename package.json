@@ -1,0 +1,19 @@
+{
+  "name": "nodejs_course",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sirSayed98/nodeJS_course.git"
+  },
+  "author": "mohamed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sirSayed98/nodeJS_course/issues"
+  },
+  "homepage": "https://github.com/sirSayed98/nodeJS_course#readme"
+}
