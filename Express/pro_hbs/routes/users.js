@@ -9,6 +9,11 @@ router.get('/info/:id', function (req, res, next) {
   res.render('info', { id: req.params.id });
 });
 
+router.post('/info', function (req, res, next) {
+  res.redirect('info/' + req.body.id)
+});
+
+
 
 
 module.exports = router;
