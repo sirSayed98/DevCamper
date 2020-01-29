@@ -10,7 +10,16 @@ router.get('/info/:id', function (req, res, next) {
 });
 
 router.post('/info', function (req, res, next) {
-  res.redirect('info/' + req.body.id)
+  req.check('id', 'invalid_id').not().isEmpty();
+  const errors = req.validationErrors();
+  if (errors) {
+    console.log(errors)
+    res.redirect('/')
+  }
+  else {
+    res.redirect('info/' + req.body.id)
+  }
+
 });
 
 
