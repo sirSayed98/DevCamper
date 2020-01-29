@@ -3,7 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var exV = require('express-validator')
+var exV = require('express-validator') //to be used in any page in project
+var session = require('express-session')//to be used in any page in project
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -19,9 +20,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(exV());
 app.use(cookieParser());
+app.use(session({ secret: 'mohamed', saveUninitialized: false, resave: false }))
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

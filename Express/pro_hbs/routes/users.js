@@ -10,14 +10,16 @@ router.get('/info/:id', function (req, res, next) {
 });
 
 router.post('/info', function (req, res, next) {
-  req.check('id', 'invalid_id').not().isEmpty();
+  req.check('id', 'invalid_id').notEmpty();
   const errors = req.validationErrors();
   if (errors) {
     console.log(errors)
+    req.session.success = false;
     res.redirect('/')
   }
   else {
-    res.redirect('info/' + req.body.id)
+
+    res.redirect('info/' + req.body.id);
   }
 
 });
