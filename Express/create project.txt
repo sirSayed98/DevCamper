@@ -3,3 +3,9 @@ npm install express-generator -g (once global install)
 to create project (express project_name)
 
 (express pro_name --hbs)
+npm install
+bower install bootstap jquery --save
+npm install express-validitor --save
+npm install express-session   --save
+npm install modemon
+npm install mongoose --save
