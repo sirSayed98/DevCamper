@@ -8,4 +8,12 @@
 
     <button type="submit">Submit</button>
 </form>
-<h1>{{success}}</h1>
+
+
+<div>
+    {{#each errors}}
+    <div>
+        {{this.msg}}
+    </div>
+    {{/each}}
+</div>

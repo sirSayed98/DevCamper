@@ -15,10 +15,12 @@ router.post('/info', function (req, res, next) {
   if (errors) {
     console.log(errors)
     req.session.success = false;
+    req.session.errors = errors
     res.redirect('/')
   }
   else {
-
+    req.session.errors = null;
+    req.session.success = true;
     res.redirect('info/' + req.body.id);
   }
 
