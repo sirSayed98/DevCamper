@@ -1,10 +1,14 @@
 const express = require('express')
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.status(200).json({
-        sucess: true,
-        msg: 'list of bootcamps'
-    })
-})
+const { getbootCamps } = require('../controllers/bootcamps');
+
+router.route('/')
+    .get(getbootCamps)
+//  .post(createboot camp)
+
+// router.route('/:id')
+//     .put(ubdatebootcamp)
+//     .delete(deletebootcamp)
+//     .get(bootcamp)
 module.exports = router;
