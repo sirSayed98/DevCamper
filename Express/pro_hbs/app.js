@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var exV = require('express-validator') //to be used in any page in project
 var session = require('express-session')//to be used in any page in project
+var mongoose = require('mongoose');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -22,6 +23,14 @@ app.use(exV());
 app.use(cookieParser());
 app.use(session({ secret: 'mohamed', saveUninitialized: false, resave: false }))
 app.use(express.static(path.join(__dirname, 'public')));
+
+// connect to database
+mongoose.connect('mongodb://localhost/MONGO_DATA', { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+  if (err) {
+    console.log(err)
+  }
+  console.log('Connected to database')
+})
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

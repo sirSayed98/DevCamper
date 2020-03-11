@@ -10,8 +10,15 @@ router.get('/info/:id', function (req, res, next) {
 });
 
 router.post('/info', function (req, res, next) {
-  req.check('id', 'invalid_id').notEmpty();
+  var name = req.body.name
+  var password = req.body.password
+  var email = req.body.email
+
+  req.check('name', 'emptyname').notEmpty();
+  req.check('password', 'emptyname').notEmpty();
+  req.check('email', 'emptyname').notEmpty();
   const errors = req.validationErrors();
+
   if (errors) {
     console.log(errors)
     req.session.success = false;
@@ -19,9 +26,18 @@ router.post('/info', function (req, res, next) {
     res.redirect('/')
   }
   else {
-    req.session.errors = null;
-    req.session.success = true;
-    res.redirect('info/' + req.body.id);
+    if (name == 'ahmed' && (password == '123456')) {
+      req.session.errors = null;
+      req.session.success = true;
+      res.render('info', { name: req.body.name });
+
+    }
+    else {
+      res.render('error')
+
+    }
+
+
   }
 
 });
