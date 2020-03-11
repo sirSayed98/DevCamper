@@ -4,7 +4,8 @@
     "description": "this is backend course",
     "main": "\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001bserver.js)",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "start": "nodemon server",
+        "dev": "nodemon server"
     },
     "author": "sirSayed98",
     "license": "ISC",
