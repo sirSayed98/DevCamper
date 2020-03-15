@@ -23,7 +23,10 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 
-//mount routes
+//body -parser
+
+app.use(express.json());
+//mount routes 
 app.use('/api/v1/bootcamps', bootcamps);
 
 const server = app.listen(PORT, () => {
