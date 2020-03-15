@@ -7,8 +7,13 @@ const connectDB = require('./config/db')
 
 //load env variables
 dotenv.config({ path: './config/config.env' });
+
 // Connect to db
 connectDB();
+
+// load Routers
+const bootcamps = require('./routes/bootcamps');
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -17,10 +22,8 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
 
-// load Routers
-const bootcamps = require('./routes/bootcamps');
 
-
+//mount routes
 app.use('/api/v1/bootcamps', bootcamps);
 
 const server = app.listen(PORT, () => {
