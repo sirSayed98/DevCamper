@@ -1,6 +1,7 @@
 const express = require('express');//nodejs framework   
 const dotenv = require('dotenv');//for .env file
 const morgan = require('morgan');// for middleware
+const colors = require('colors');// for middleware
 const connectDB = require('./config/db')
 
 
@@ -23,13 +24,13 @@ const bootcamps = require('./routes/bootcamps');
 app.use('/api/v1/bootcamps', bootcamps);
 
 const server = app.listen(PORT, () => {
-    console.log(`App is listening on port ${PORT}! in ${process.env.NODE_ENV} mode `);
+    console.log(`App is listening on port ${PORT}! in ${process.env.NODE_ENV} mode `.bgRed.white);
 });
 
 //handle unhandled promise rejections
 process.on('unhandledRejections', (err, promise) => {
     console.log('--------------------------------------------------');
-    console.log(`Eroor: ${err.message}`);
+    console.log(`Eroor: ${err.message}`.red.bold);
     console.log('--------------------------------------------------');
     //close server && exit process
     server.close(() => process.exit(1));
