@@ -10,9 +10,10 @@ router
 
 router
     .route('/:id')
+    .get(getbootCamp)
     //.put(ubdatebootCamp)
     .delete(deletebootCamp)
-    .get(getbootCamp)
+    
 
 
 module.exports = router;
