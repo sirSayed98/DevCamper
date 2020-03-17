@@ -7,7 +7,7 @@ const Bootcamp = require('../models/Bootcamp')
 exports.getbootCamps = async (req, res, next) => {
     try {
         const bootcamp = await Bootcamp.find();
-        res.status(200).json({ sucess: true,count:bootcamp.length, data: bootcamp })
+        res.status(200).json({ sucess: true, count: bootcamp.length, data: bootcamp })
     } catch (error) {
         res.status(200).json({ success: false, msg: 'bad request' })
     }
@@ -23,7 +23,8 @@ exports.getbootCamp = async (req, res, next) => {
             return res.status(400).json({ sucess: false, msg: "no existed id" })
         }
     } catch (error) {
-        res.status(400).json({ sucess: false, msg: "bad request" })
+        next(error);
+        //res.status(400).json({ sucess: false, msg: "bad request" })
     }
 }
 
@@ -68,7 +69,7 @@ exports.updatebootCamp = async (req, res, next) => {
 exports.deletebootCamp = async (req, res, next) => {
     try {
         const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
-    
+
         if (!bootcamp) {
             res.status(400).json({ success: false, msg: `bad request` });
         }

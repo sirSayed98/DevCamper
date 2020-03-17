@@ -1,7 +1,8 @@
 const express = require('express');//nodejs framework   
 const dotenv = require('dotenv');//for .env file
 const morgan = require('morgan');// for middleware
-const colors = require('colors');// for middleware
+const colors = require('colors');// for pretty console.log
+const errorHandler = require('./middleware/error')
 const connectDB = require('./config/db')
 
 
@@ -24,10 +25,13 @@ if (process.env.NODE_ENV === 'development') {
 
 
 //body -parser
-
 app.use(express.json());
+
 //mount routes 
 app.use('/api/v1/bootcamps', bootcamps);
+
+//errorHandler
+app.use(errorHandler);
 
 const server = app.listen(PORT, () => {
     console.log(`App is listening on port ${PORT}! in ${process.env.NODE_ENV} mode `.bgRed.white);
