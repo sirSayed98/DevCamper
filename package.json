@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/sirSayed98/nodeJS_course#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "slugify": "^1.4.0"
   }
 }
