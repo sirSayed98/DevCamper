@@ -6,14 +6,14 @@ const Bootcamp = require('../models/Bootcamp')
 //@desc       get all bootCamps
 //@route      GET/api/v1/bootcamps
 //@access     public
-
 exports.getbootCamps = asyncHandler(async (req, res, next) => {
 
     const bootcamp = await Bootcamp.find();
     res.status(200).json({ sucess: true, count: bootcamp.length, data: bootcamp })
-    res.status(200).json({ success: false, msg: 'bad request' })
+  
 
 })
+
 // @desc      Get single bootcamp
 // @route     GET /api/v1/bootcamps/:id
 // @access    Public
