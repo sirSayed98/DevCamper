@@ -14,6 +14,7 @@ connectDB();
 
 // load Routers
 const bootcamps = require('./routes/bootcamps');
+const courses = require('./routes/courses');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -29,6 +30,7 @@ app.use(express.json());
 
 //mount routes 
 app.use('/api/v1/bootcamps', bootcamps);
+app.use('/api/v1/courses', courses);
 
 //errorHandler
 app.use(errorHandler);
