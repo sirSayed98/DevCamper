@@ -25,7 +25,7 @@ exports.getbootCamps = asyncHandler(async (req, res, next) => {
     queryStr = queryStr.replace(/\b(gt|gte|lte|lt|in)\b/g, match => `$${match}`);
 
     //find resource
-    query = Bootcamp.find(JSON.parse(queryStr));
+    query = Bootcamp.find(JSON.parse(queryStr)).populate('courses');
 
     //select fields
     if (req.query.select) {
@@ -115,12 +115,13 @@ exports.updatebootCamp = asyncHandler(async (req, res, next) => {
 // @access    Private
 exports.deletebootCamp = asyncHandler(async (req, res, next) => {
 
-    const bootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
+    const bootcamp = await Bootcamp.findById(req.params.id);
 
     if (!bootcamp) {
         res.status(400).json({ success: false, msg: `bad request` });
     }
-    req.status(200).json({ success: true, data: {} });
+    bootcamp.remove();
+    res.status(200).json({ success: true, data: {} });
 });
 
 // @desc      GET bootcamps within a radius
