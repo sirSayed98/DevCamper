@@ -7,66 +7,7 @@ const path = require('path');
 //@route      GET/api/v1/bootcamps
 //@access     public
 exports.getbootCamps = asyncHandler(async (req, res, next) => {
-    let query;
-
-    // copy req.query
-    const reqQuery = { ...req.query };
-
-    //fields to exclude
-    const removeFields = ['select', 'sort', 'limit', 'page'];
-
-    // loop over and removeFields and delete them from reqQuery
-    removeFields.forEach(param => delete reqQuery[param]);
-
-
-    let queryStr = JSON.stringify(reqQuery);
-
-    //create operators {$gt|gte,etc..}
-    queryStr = queryStr.replace(/\b(gt|gte|lte|lt|in)\b/g, match => `$${match}`);
-
-    //find resource
-    query = Bootcamp.find(JSON.parse(queryStr)).populate('courses');
-
-    //select fields
-    if (req.query.select) {
-        const fields = req.query.select.split(',').join(' ');
-        query = query.select(fields);
-    }
-    // Sort
-    if (req.query.sort) {
-        const sortBy = req.query.sort.split(',').join(' ');
-        query = query.sort(sortBy);
-    } else {
-        query = query.sort('-createdAt');
-    }
-    //Pagination
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit, 10) || 4;
-    const startIndex = (page - 1) * limit;
-    const endIndex = page * limit;
-    const total = await Bootcamp.countDocuments();
-    query = query.skip(startIndex).limit(limit);
-
-
-    //Excuting  Query
-    const bootcamp = await query;
-
-    // Pagination result
-    const pagination = {};
-    if (endIndex < total) {
-        pagination.next = {
-            page: page + 1,
-            limit
-        }
-    }
-    if (startIndex > 0) {
-        pagination.prev = {
-            page: page - 1,
-            limit
-        }
-    }
-
-    res.status(200).json({ sucess: true, count: bootcamp.length, pagination: pagination, data: bootcamp })
+    res.status(200).json(res.advancedResults); 
 })
 
 // @desc      Get single bootcamp
