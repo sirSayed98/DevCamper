@@ -2,9 +2,10 @@ const express = require('express');//nodejs framework
 const dotenv = require('dotenv');//for .env file
 const morgan = require('morgan');// for middleware
 const colors = require('colors');// for pretty console.log
+const fileupload = require('express-fileupload'); //for fileupload
 const errorHandler = require('./middleware/error')
 const connectDB = require('./config/db')
-
+const path = require('path');
 
 //load env variables
 dotenv.config({ path: './config/config.env' });
@@ -23,6 +24,11 @@ const PORT = process.env.PORT || 5000;
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
+// file upload
+app.use(fileupload());
+
+//set static folder 
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 //body -parser
