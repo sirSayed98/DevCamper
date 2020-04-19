@@ -9,21 +9,24 @@ const courseRouter = require('./courses');
 
 const advancedResults = require('../middleware/advancedResults');
 const Bootcamp = require('../models/Bootcamp');
+
+const { protect } = require('../middleware/auth');
+
 // Re-route into other resource routers
 router.use('/:bootcampId/courses', courseRouter);
 
-router.route('/:id/photo').put(bootcampPhotoUpload)
+router.route('/:id/photo').put(protect, bootcampPhotoUpload)
 
 router
     .route('/')
     .get(advancedResults(Bootcamp, 'courses'), getbootCamps)
-    .post(createbootCamp)
+    .post(protect, createbootCamp)
 
 router
     .route('/:id')
     .get(getbootCamp)
-    //.put(ubdatebootCamp)
-    .delete(deletebootCamp)
+    //.put(protect, ubdatebootCamp)
+    .delete(protect, deletebootCamp);
 
 
 
