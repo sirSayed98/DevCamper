@@ -3,7 +3,8 @@ const dotenv = require('dotenv');//for .env file
 const morgan = require('morgan');// for middleware
 const colors = require('colors');// for pretty console.log
 const fileupload = require('express-fileupload'); //for fileupload
-const errorHandler = require('./middleware/error')
+const cookieParser = require('cookie-parser');
+const errorHandler = require('./middleware/error');
 const connectDB = require('./config/db')
 const path = require('path');
 
@@ -16,6 +17,7 @@ connectDB();
 // load Routers
 const bootcamps = require('./routes/bootcamps');
 const courses = require('./routes/courses');
+const auth = require('./routes/auth')
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -31,12 +33,16 @@ app.use(fileupload());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-//body -parser
+//body-parser
 app.use(express.json());
 
+//cookie_parser
+app.use(cookieParser());
 //mount routes 
 app.use('/api/v1/bootcamps', bootcamps);
 app.use('/api/v1/courses', courses);
+app.use('/api/v1/auth', auth);
+
 
 //errorHandler
 app.use(errorHandler);
