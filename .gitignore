@@ -2,5 +2,5 @@ node_modules/
 #you have to write (npm install) in console
 *.png
 API_course/node_modules
-*.env
+*config.env
 Express/
