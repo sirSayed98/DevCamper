@@ -5,7 +5,8 @@
     "main": "\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001bserver.js)",
     "scripts": {
         "start": "node server.js ",
-        "dev": "nodemon server.js"
+        "dev": "nodemon server.js",
+        "debug":"ndb server.js"
     },
     "author": "sirSayed98",
     "license": "ISC",
@@ -26,6 +27,7 @@
         "morgan": "^1.9.1",
         "node-geocoder": "^3.25.1",
         "nodemailer": "^6.4.10",
+        "slugify": "^1.4.4",
         "xss-clean": "^0.1.1"
     },
     "devDependencies": {

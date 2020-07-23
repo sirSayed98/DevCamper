@@ -26,6 +26,23 @@ exports.getBootcamp = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: bootcamp });
 });
 
+// @desc      Get Bootcamp of puplisher
+// @route     GET /api/v1/bootcamps/myBootcamp
+// @access    Private/Puplisher
+exports.getMyBootcamp = asyncHandler(async (req, res, next) => {
+
+  const bootcamp = await Bootcamp.findOne({ user: req.user.id });
+  if (!bootcamp) {
+    return next(
+      new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404)
+    );
+  }
+
+  res.status(200).json({ success: true, data: bootcamp });
+});
+
+
+
 // @desc      Create new bootcamp
 // @route     POST /api/v1/bootcamps
 // @access    Private
