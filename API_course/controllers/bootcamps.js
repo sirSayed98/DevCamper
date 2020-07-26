@@ -31,7 +31,7 @@ exports.getBootcamp = asyncHandler(async (req, res, next) => {
 // @access    Private/Puplisher
 exports.getMyBootcamp = asyncHandler(async (req, res, next) => {
 
-  const bootcamp = await Bootcamp.findOne({ user: req.user.id });
+  const bootcamp = await Bootcamp.findOne({ user: req.user.id }).populate('courses');
   if (!bootcamp) {
     return next(
       new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404)
