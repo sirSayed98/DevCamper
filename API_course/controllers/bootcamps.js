@@ -211,7 +211,7 @@ exports.bootcampPhotoUpload = asyncHandler(async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      data: file.name
+      data: { fileName: file.name, filePath: `/uploads/${file.name}` }
     });
   });
 });
