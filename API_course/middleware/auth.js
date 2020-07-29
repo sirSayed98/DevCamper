@@ -7,7 +7,6 @@ const User = require('../models/User');
 // Protect routes
 exports.protect = asyncHandler(async (req, res, next) => {
   let token;
-
   if (req.cookies.token) {
     // Set token from Bearer token in header
     token = req.headers.cookie.split('=')[1];
@@ -32,8 +31,6 @@ exports.protect = asyncHandler(async (req, res, next) => {
 
   req.user = currentUser;
   res.locals.user = currentUser;
-  console.log("req.user");
-  console.log(req.user);
   next();
 });
 // Grant access to specific roles

@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const errorHandler = require('./middleware/error');
 const connectDB = require('./config/db')
 const path = require('path');
+
 //security
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
@@ -36,8 +37,7 @@ const PORT = process.env.PORT || 5000;
 if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'));
 }
-// File uploading
-app.use(fileupload());
+
 
 // Sanitize data
 app.use(mongoSanitize());
@@ -48,12 +48,12 @@ app.use(helmet());
 // Prevent XSS attacks
 app.use(xss());
 
-// Rate limiting
-// const limiter = rateLimit({
-//     windowMs: 10 * 60 * 1000, // 10 mins
-//     max: 1000
-// });
-// app.use(limiter);
+//Rate limiting
+const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000, // 10 mins
+    max: 1000
+});
+app.use(limiter);
 
 // Prevent http param pollution
 app.use(hpp());
@@ -66,7 +66,7 @@ app.use(cors());
 app.use(fileupload());
 
 //set static folder 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'client/public/uploads')));
 
 
 //body-parser
@@ -74,6 +74,7 @@ app.use(express.json());
 
 //cookie_parser
 app.use(cookieParser());
+
 //mount routes 
 app.use('/api/v1/bootcamps', bootcamps);
 app.use('/api/v1/courses', courses);

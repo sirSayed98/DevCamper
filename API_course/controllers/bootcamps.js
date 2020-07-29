@@ -4,6 +4,7 @@ const geocoder = require('../utilities/geocoder');
 const Bootcamp = require('../models/Bootcamp');
 const path = require('path');
 
+
 // @desc      Get all bootcamps
 // @route     GET /api/v1/bootcamps
 // @access    Public
@@ -181,6 +182,7 @@ exports.bootcampPhotoUpload = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse(`Please upload a file`, 400));
   }
 
+
   const file = req.files.file;
 
   // Make sure the image is a photo
@@ -201,7 +203,7 @@ exports.bootcampPhotoUpload = asyncHandler(async (req, res, next) => {
   // Create custom filename
   file.name = `photo_${bootcamp._id}${path.parse(file.name).ext}`;
 
-  file.mv(`${__dirname}/client/public/uploads/${file.name}`, async err => {
+  file.mv(`${process.env.FILE_UPLOAD_PATH}/${file.name}`, async err => {
     if (err) {
       console.error(err);
       return next(new ErrorResponse(`Problem with file upload`, 500));
@@ -211,7 +213,7 @@ exports.bootcampPhotoUpload = asyncHandler(async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      data: { fileName: file.name, filePath: `/uploads/${file.name}` }
+      data: { fileName: file.name, filePath: `./uploads/${file.name}` }
     });
   });
 });
