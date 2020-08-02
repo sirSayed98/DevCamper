@@ -120,3 +120,18 @@ exports.deleteReview = asyncHandler(async (req, res, next) => {
     data: {}
   });
 });
+
+// @desc      Get reviews for user
+// @route     GET /api/v1/reviews/myreviews
+// @access    Public
+exports.getUserReviews = asyncHandler(async (req, res, next) => {
+  
+    const reviews = await Review.find({ user: req.user.id });
+
+    return res.status(200).json({
+      success: true,
+      count: reviews.length,
+      data: reviews
+    });
+ 
+});

@@ -4,7 +4,8 @@ const {
   getReview,
   addReview,
   updateReview,
-  deleteReview
+  deleteReview,
+  getUserReviews
 } = require('../controllers/reviews');
 
 const Review = require('../models/Review');
@@ -13,6 +14,12 @@ const router = express.Router({ mergeParams: true });
 
 const advancedResults = require('../middleware/advancedResults');
 const { protect, authorize } = require('../middleware/auth');
+
+
+router
+  .route('/myreviews')
+  .get(protect, authorize('user'), getUserReviews)
+
 
 router
   .route('/')
