@@ -171,7 +171,8 @@ const sendTokenResponse = (user, statusCode, res) => {
         .cookie('token', token, options)
         .json({
             success: true,
-            token
+            token,
+            name: user.name
         });
 };
 // @desc      Update user details
