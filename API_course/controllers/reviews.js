@@ -9,7 +9,13 @@ const Bootcamp = require('../models/Bootcamp');
 // @access    Public
 exports.getReviews = asyncHandler(async (req, res, next) => {
   if (req.params.bootcampId) {
-    const reviews = await Review.find({ bootcamp: req.params.bootcampId });
+    const reviews = await Review.find({ bootcamp: req.params.bootcampId }).populate({
+      path: 'bootcamp',
+      select: 'name averageRating'
+    }).populate({
+      path: 'user',
+      select:"name"
+    });
 
     return res.status(200).json({
       success: true,
@@ -125,17 +131,17 @@ exports.deleteReview = asyncHandler(async (req, res, next) => {
 // @route     GET /api/v1/reviews/myreviews
 // @access    Public
 exports.getUserReviews = asyncHandler(async (req, res, next) => {
-  
-    const reviews = await Review.find({ user: req.user.id }).populate({
-      path: 'bootcamp',
-      select: 'name'
-    });
+
+  const reviews = await Review.find({ user: req.user.id }).populate({
+    path: 'bootcamp',
+    select: 'name'
+  });
 
 
-    return res.status(200).json({
-      success: true,
-      count: reviews.length,
-      data: reviews
-    });
- 
+  return res.status(200).json({
+    success: true,
+    count: reviews.length,
+    data: reviews
+  });
+
 });
