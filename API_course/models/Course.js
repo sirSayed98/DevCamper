@@ -56,14 +56,14 @@ CourseSchema.statics.getAverageCost = async function (bootcampId) {
             }
         }
     ]);
-
-    try {
+    if (obj.length > 0)
         await this.model('Bootcamp').findByIdAndUpdate(bootcampId, {
             averageCost: Math.ceil(obj[0].averageCost / 10) * 10
         });
-    } catch (err) {
-        console.error(err);
-    }
+    else
+        await this.model('Bootcamp').findByIdAndUpdate(bootcampId, {
+            averageCost: 0
+        });
 };
 
 // Call getAverageCost after save
@@ -71,9 +71,17 @@ CourseSchema.post('save', function () {
     this.constructor.getAverageCost(this.bootcamp);
 });
 
-// Call getAverageCost before remove
-CourseSchema.pre('remove', function () {
-    this.constructor.getAverageCost(this.bootcamp);
+//Update and delete
+// pass reviewId from pre middleware to post middleware --> (keep current document in this.r)  
+CourseSchema.pre(/^findOneAnd/, async function (next) {
+    this.r = await this.findOne();
+    console.log(this.r);
+    next();
 });
+
+CourseSchema.post(/^findOneAnd/, async function () {
+    await this.r.constructor.getAverageCost(this.r.bootcamp);
+});
+
 
 module.exports = mongoose.model('Course', CourseSchema);

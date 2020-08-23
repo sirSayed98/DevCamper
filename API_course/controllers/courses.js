@@ -100,7 +100,7 @@ exports.getCourses = asyncHandler(async (req, res, next) => {
       );
     }
   
-    course = await Course.findByIdAndUpdate(req.params.id, req.body, {
+    course = await Course.findOneAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true
     });
@@ -134,7 +134,7 @@ exports.getCourses = asyncHandler(async (req, res, next) => {
       );
     }
   
-    await course.remove();
+    await Course.findOneAndDelete(req.params.id)
   
     res.status(200).json({
       success: true,
