@@ -66,7 +66,7 @@ app.use(cors());
 app.use(fileupload());
 
 //set static folder 
-app.use(express.static(path.join(__dirname, 'client/public/uploads')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 //body-parser
